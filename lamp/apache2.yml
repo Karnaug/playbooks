@@ -51,7 +51,3 @@
 #PHP
     - name: install php
       apt: name=php update_cache=yes state=latest 
-#PHPMYADMIN
-    - name: install phpMyAdmin
-      apt: name=phpmyadmin update_cache=yes state=latest 
-
