@@ -1,0 +1,67 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+  gather_facts: true
+  vars_files:
+   - vars/default.yml
+
+  tasks:
+ #HTTPD 
+  - name: Install apache packages 
+    yum:
+      name: httpd
+      state: 2.4
+  - name: ensure httpd is running
+    service:
+      name: httpd 
+      state: started
+  - name: Open port 80 for http access
+    firewalld:
+      service: http
+      permanent: true
+      state: enabled
+  - name: Restart the firewalld service to load in the firewall changes
+    service: 
+      name: firewalld 
+      state: restarted
+
+      
+#MYSQL
+  - name: "Installing MySQL 5.7"
+    package: name=mysql-community-server state=5.7
+
+  - name: Start the MySQL service
+    become: true
+    service: 
+      name: mysqld
+      state: started
+      enabled: true
+      
+  - name: Find MySQL root password
+    shell: "echo `grep 'temporary.*root@localhost' /var/log/mysqld.log | sed 's/.*root@localhost: //'`"
+    register: mysql_root_pass
+  - debug: var=mysql_root_pass.stdout
+
+###  PHP 
+  - name: Installation PHP 7.4
+    yum: name=php7.4 state=present
+
+  - name: install php7.4
+    yum:
+      pkg:
+        - php7.4-mysql
+        - php7.4-curl
+        - php7.4-json
+        - php7.4-cgi
+        - php7.4-xsl
+        - php7.4-cgi
+        - php7.4-gd
+        - php7.4-mbstring
+        - php7.4-zip
+        - php7.4-xmlrpc
+        - php7.4-soap
+        - php7.4-intl
+
+      state: 7.4
+      update_cache: yes 
