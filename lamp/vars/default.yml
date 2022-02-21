@@ -1,0 +1,7 @@
+---
+mysql_root_password: "root"
+app_user: "diego"
+http_host: "midominio"
+http_conf: "midominio.conf"
+http_port: "80"
+disable_default: true
