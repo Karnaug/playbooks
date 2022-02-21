@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: install apache2
+      apt: name=apache2 update_cache=yes state=latest
+    - name: install mysql
+      apt: name=mysql-server update_cache=yes state=latest
+    - name: install php
+      apt: name=php update_cache=yes state=latest 
+    - name: install phpMyAdmin
+      apt: name=phpmyadmin update_cache=yes state=latest 
