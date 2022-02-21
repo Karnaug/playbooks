@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: 192.168.149.187
   become: true
   become_method: sudo
   
