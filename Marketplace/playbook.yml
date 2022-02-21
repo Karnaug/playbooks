@@ -38,10 +38,6 @@
       state: started
       enabled: true
       
-  - name: Find MySQL root password
-    shell: "echo `grep 'temporary.*root@localhost' /var/log/mysqld.log | sed 's/.*root@localhost: //'`"
-    register: mysql_root_pass
-  - debug: var=mysql_root_pass.stdout
 
 ###  PHP 
   - name: Installation PHP 7.4
