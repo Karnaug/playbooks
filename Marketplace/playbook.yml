@@ -3,8 +3,6 @@
   become: true
   become_method: sudo
   gather_facts: true
-  vars_files:
-   - vars/default.yml
 
   tasks:
  #HTTPD 
@@ -25,39 +23,3 @@
     service: 
       name: firewalld 
       state: restarted
-
-      
-#MYSQL
-  - name: "Installing MySQL 5.7"
-    package: name=mysql-community-server state=5.7
-
-  - name: Start the MySQL service
-    become: true
-    service: 
-      name: mysqld
-      state: started
-      enabled: true
-      
-
-###  PHP 
-  - name: Installation PHP 7.4
-    yum: name=php7.4 state=present
-
-  - name: install php7.4
-    yum:
-      pkg:
-        - php7.4-mysql
-        - php7.4-curl
-        - php7.4-json
-        - php7.4-cgi
-        - php7.4-xsl
-        - php7.4-cgi
-        - php7.4-gd
-        - php7.4-mbstring
-        - php7.4-zip
-        - php7.4-xmlrpc
-        - php7.4-soap
-        - php7.4-intl
-
-      state: 7.4
-      update_cache: yes 
