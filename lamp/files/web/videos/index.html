@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="/assets/css/master.css">
+        <meta charset="UTF-8">
+        <title>Videos</title>
+    </head>
+
+    <body>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="/"><img src="/assets/img/murloc.png" id="murloc"></a></li>
+                <li><a href="/formulario/">FORMULARIO</a></li>
+                <li><a href="/vida/">VIDA</a></li>
+                <li><a href="/videos/">VIDEOS</a></li>
+            </ul>
+        </nav>
+        <div id="content">
+            <div class="title">
+                <img src="/assets/img/wow.png">
+            </div>
+            <div class="text-box">
+                <iframe width="600" height="330" src="https://www.youtube.com/embed/askHMKqQJvk" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+                <iframe width="600" height="330" src="https://www.youtube.com/embed/zphXkDg6eYs" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <script src="/assets/js/jquery.js"></script>
+            <script>
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() == 0) { $("#murloc").removeClass("mur") } else { $("#murloc").addClass("mur") }
+                })
+            </script>
+    </body>
+
+</html>

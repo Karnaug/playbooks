@@ -1,6 +1,6 @@
 ---
 mysql_root_password: "root"
-app_user: "diego"
+app_user: "awx"
 http_host: "midominio"
 http_conf: "midominio.conf"
 http_port: "80"

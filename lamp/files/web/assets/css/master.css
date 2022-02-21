@@ -1,0 +1,90 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-image: url(/assets/img/hunmurloc.png);
+    
+}
+
+nav{
+    width: 100%; 
+    position: fixed; 
+    z-index: 100;
+}
+
+#nav-menu{
+    list-style: none;
+    padding: 15px;
+    margin: 0;
+    background-color: #00d1cf;
+}
+
+#nav-menu > li{
+    margin-right: 15px;
+    display: inline;
+}
+
+#nav-menu > li > a{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #c1361b;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.active{
+    background-color: aqua;
+}
+
+.mur{
+    height: 45px;
+}
+
+#content{
+    width: 100%;
+    margin-top: 150px;
+    position: absolute;
+}
+
+#content > div.title{
+    width: 100%;
+    text-align: center;
+}
+#content > div.text-box{
+    margin: 100px;
+    border-style: solid;
+    border-width: 7px;
+    border-color:  #2aa595;
+    background: rgba(255, 255, 255, 0.555);
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    padding: 5px;
+}
+
+
+#content > div > p.text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    text-align: justify;
+}
+iframe{
+    margin:20px;
+}
+
+div.login{
+    text-align: center;
+    width: auto;
+}
+
+table.visual {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size:50px;
+    text-align: center;
+    width: 100%;
+    }  
+    td.format{
+        font-size: 65px;
+        color: rgb(94, 12, 12);
+    }
+   table.visual {
+       border-spacing: 50px;
+   }

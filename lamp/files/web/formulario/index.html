@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="/assets/css/master.css">
+    <meta charset="UTF-8">
+    <title>Formulario</title>
+  </head>
+
+  <body>
+    <nav>
+      <ul id="nav-menu">
+        <li><a href="/"><img src="/assets/img/murloc.png" id="murloc"></a></li>
+        <li><a href="/formulario/">FORMULARIO</a></li>
+        <li><a href="/vida/">VIDA</a></li>
+        <li><a href="/videos/">VIDEOS</a></li>
+      </ul>
+    </nav>
+    <div id="content">
+      <div class="title">
+        <img src="/assets/img/wow.png">
+      </div>
+      <div class="text-box login">
+        <img src="/assets/img/Login.png">
+        <form name="login" action="/tabla/" method="post">
+          <label class="Log">NOMBRE: </label><input name="user" type="text" required /></br>
+          <label class="Log">CONTRASEÑA: </label><input name="pass" type="password" required></br>
+          <input type="submit" />
+        </form>
+      </div>
+      <script src="/assets/js/jquery.js"></script>
+      <script>
+        $(window).scroll(function () {
+          if ($(window).scrollTop() == 0) { $("#murloc").removeClass("mur") } else { $("#murloc").addClass("mur") }
+        })
+      </script>
+  </body>
+
+</html>
