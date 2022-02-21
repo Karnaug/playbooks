@@ -33,7 +33,7 @@
       
     - name: Copiar contenido web
       template:
-        src: "files/web/*"
+        src: "files/web/"
         dest: "/var/www/{{ http_host }}/"
         
     - name: apache2 virtualhost on port 8081
