@@ -33,8 +33,8 @@
       
     - name: Copiar contenido web
       template:
-        src: "files/web/"
-        dest: "/var/www/{{ http_host }}/"
+        src: "files/web"
+        dest: "/var/www/{{ http_host }}"
         
     - name: apache2 virtualhost on port 8081
       lineinfile: dest=/etc/apache2/sites-available/000-default.conf regexp="^<VirtualHost \*:80>" line="<VirtualHost *:8081>" state=present
