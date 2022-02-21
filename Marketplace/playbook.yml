@@ -3,9 +3,8 @@
   become: true
   become_method: sudo
   gather_facts: true
-
+  
   tasks:
- #HTTPD 
   - name: Install apache packages 
     yum:
       name: httpd
