@@ -4,6 +4,14 @@
   become_method: sudo
   
   tasks:
+#DEPENDENCIAS
+  - name: Instalar dependencias php7.4
+    command: 'sudo dnf module enable php:7.4 -y'
+  - name: Instalar dependencias php7.4
+    command: 'sudo dnf module enable httpd:2.4 -y'
+    
+#INSTALACION
+    
   - name: Install php and httpd
     package:
       name:
