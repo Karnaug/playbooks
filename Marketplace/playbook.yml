@@ -20,5 +20,9 @@
     command: 'sudo dnf module reset mysql'
   - name: Instalar dependencias hhtpd
     command: 'sudo dnf module disable mysql -y'
+  - name: dependencias mysql-community
+    template:
+      src: "files/mysql-community.repo"
+      dest: "/etc/yum.repos.d/mysql-community.repo"
     
 
