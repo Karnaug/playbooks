@@ -12,6 +12,13 @@
     command: 'sudo dnf module enable php:remi-7.4 -y'
   - name: Instalar dependencias remi4
     command: 'sudo dnf install php php-cli php-common -y'
-
+    
+    
+  - name: Instalar dependencias hhtpd
+    command: 'sudo dnf remove @mysql'
+  - name: Instalar dependencias hhtpd
+    command: 'sudo dnf module reset mysql'
+  - name: Instalar dependencias hhtpd
+    command: 'sudo dnf module disable mysql -y'
     
 
