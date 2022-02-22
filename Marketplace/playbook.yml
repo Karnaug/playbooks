@@ -4,31 +4,100 @@
   become_method: sudo
   
   tasks:
-  - name: Instalar dependencias remi1
+##PHP7.4
+  - name: Instalar php1
     command: 'sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y'
-  - name: Instalar dependencias remi2
+  - name: Instalar php2
     command: 'sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y'
-  - name: Instalar dependencias remi3
+  - name: Instalar php3
     command: 'sudo dnf module enable php:remi-7.4 -y'
-  - name: Instalar dependencias remi4
+  - name: Instalar php4
     command: 'sudo dnf install php php-cli php-common php-mysqlnd -y'
-    
-    
-  - name: Instalar dependencias hhtpd
+
+##MYSQL5.7  
+  - name: Instalar mysql1 
+    command: 'dnf search open-vm'
+  - name: Instalar mysql2
+    command: 'sudo dnf install open-vm-tools.x86_64 -y'
+  - name: Instalar mysql3
     command: 'sudo dnf remove @mysql'
-  - name: Instalar dependencias hhtpd
+  - name: Instalar mysql4
     command: 'sudo dnf module reset mysql'
-  - name: Instalar dependencias hhtpd
+  - name: Instalar mysql5 
     command: 'sudo dnf module disable mysql -y'
-  - name: dependencias mysql-community
+  - name: Instalar mysql6
     template:
       src: "files/mysql-community.repo"
       dest: "/etc/yum.repos.d/mysql-community.repo"
-  - name: Instalar dependencias hhtpd
+  - name: Instalar mysql7
     command: 'sudo dnf config-manager --disable mysql80-community'
-  - name: Instalar dependencias hhtpd
+  - name: Instalar mysql8
     command: 'sudo dnf config-manager --enable mysql57-community'
-  - name: Instalar dependencias hhtpd
+  - name: Instalar mysql9
     command: 'sudo dnf install mysql-community-server -y'
+  - name: Instalar mysql10 
+    command: 'sudo systemctl enable --now mysqld.service'
+
+##GIT
+  - name: Instalar git1
+    command: 'sudo dnf search git'
+  - name: Instalar git2
+    command: 'sudo dnf install git.x86_64 -y'
+
+##SNMP
+  - name: Instalar snmp1 
+    command: 'sudo dnf module disable mysql -y'
+  - name: Instalar snmp2
+    template:
+      src: "files/snmp.conf"
+      dest: "/etc/snmp/snmpd.conf" 
+  - name: Instalar snmp3 
+    command: 'sudo systemctl enable snmpd'
+  - name: Instalar snmp4 
+    command: 'sudo systemctl start snmpd'
+
+##HTTPD
+  - name: Instalar httpd1 
+    command: 'sudo yum install httpd -y'
+  - name: Instalar httpd2
+    command: 'sudo systemctl enable httpd'
+  - name: Instalar httpd3
+    command: 'sudo systemctl start httpd'
+  - name: Instalar httpd4
+    command: 'sudo mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key'
+  - name: Instalar httpd5
+    template:
+      src: "files/httpd.conf"
+      dest: "/etc/httpd/conf/httpd.conf"
+
+    ##HTTPD##SSL
+  - name: Instalar httpd-ssl1
+    command: 'sudo dnf install mod_ssl -y'
+  - name: Instalar httpd-ssl2
+    template:
+      src: "files/ssl.conf"
+      dest: "/etc/httpd/conf.d/ssl.conf"
+
+##IPTABLES
+#  - name: Instalar iptables1
+#    command: 'sudo dnf install iptables -y'
+#  - name: Instalar iptables2
+#    command: 'sudo dnf install iptables-services -y'
+#  - name: Instalar iptables3
+#    command: 'sudo systemctl enable iptables'
+#  - name: Instalar iptables4
+#    command: 'sudo service iptables start'
+#  - name: Instalar httpd-ssl5
+#    template:
+#      src: "files/iptables-config"
+#      dest: "/etc/sysconfig/iptables-config"
+#  - name: Instalar httpd-ssl6
+#    template:
+#      src: "files/iptables"
+#      dest: "/etc/sysconfig/iptables"
+#  - name: Instalar iptables7
+#    command: 'sudo service iptables restart'
+#  - name: Instalar iptables8
+#    command: 'sudo systemctl disable firewalld'
     
 
