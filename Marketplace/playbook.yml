@@ -11,7 +11,7 @@
   - name: Instalar dependencias remi3
     command: 'sudo dnf module enable php:remi-7.4 -y'
   - name: Instalar dependencias remi4
-    command: 'sudo dnf install php php-cli php-common -y'
+    command: 'sudo dnf install php php-cli php-common php-mysqlnd -y'
     
     
   - name: Instalar dependencias hhtpd
@@ -24,5 +24,11 @@
     template:
       src: "files/mysql-community.repo"
       dest: "/etc/yum.repos.d/mysql-community.repo"
+  - name: Instalar dependencias hhtpd
+    command: 'sudo dnf config-manager --disable mysql80-community'
+  - name: Instalar dependencias hhtpd
+    command: 'sudo dnf config-manager --enable mysql57-community'
+  - name: Instalar dependencias hhtpd
+    command: 'sudo dnf install mysql-community-server -y'
     
 
