@@ -4,17 +4,14 @@
   become_method: sudo
   
   tasks:
-#DEPENDENCIAS
-  - name: Instalar dependencias php7.4
-    command: 'sudo dnf module enable php:7.4 -y'
-  - name: Instalar dependencias php7.4
-    command: 'sudo dnf module enable httpd:2.4 -y'
+  - name: Instalar dependencias remi1
+    command: 'sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y'
+  - name: Instalar dependencias remi2
+    command: 'sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y'
+  - name: Instalar dependencias remi3
+    command: 'sudo dnf module enable php:remi-7.4 -y'
+  - name: Instalar dependencias remi4
+    command: 'sudo dnf install php php-cli php-common -y'
+
     
-#INSTALACION
-    
-  - name: Install php and httpd
-    package:
-      name:
-        - php
-        - httpd
-      state: present
+
