@@ -107,7 +107,7 @@
     lineinfile: dest=/etc/sysconfig/network-scripts/ifcfg-enp0s3 regexp="^IPADDR=" line="IPADDR={{ ipaddr }}" state=present
   - name: Configuración de red2
     lineinfile: dest=/etc/sysconfig/network-scripts/ifcfg-enp0s3 regexp="^GATEWAY=192.168.149.187" line="GATEWAY={{ gateway }}" state=present
-  - name: Configuración de red2
-    command: 'sudo sudo systemctl status network.service'
+  - name: Configuración de red3
+    command: 'sudo sudo systemctl restart network.service'
     
 
