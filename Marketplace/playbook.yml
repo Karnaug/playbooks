@@ -31,6 +31,7 @@
       dest: "/etc/yum.repos.d/mysql-community.repo"
   - name: Instalar mysql7
     command: 'sudo dnf config-manager --disable mysql80-community'
+    ignore_unreachable: yes
   - name: Instalar mysql8
     command: 'sudo dnf config-manager --enable mysql57-community'
   - name: Instalar mysql9
