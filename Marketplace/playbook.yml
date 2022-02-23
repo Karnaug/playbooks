@@ -100,8 +100,10 @@
 #      dest: "/etc/sysconfig/iptables"
 #  - name: Instalar iptables7
 #    command: 'sudo service iptables restart'
-#  - name: Instalar iptables8
-#    command: 'sudo systemctl disable firewalld'
+
+##FIREWALLD
+  - name: Deshabilitar firewalld
+    command: 'sudo systemctl disable firewalld'
 ##IP
   - name: Configuración de red1
     lineinfile: dest=/etc/sysconfig/network-scripts/ifcfg-enp0s3 regexp="^IPADDR=" line="IPADDR={{ ipaddr }}" state=present
