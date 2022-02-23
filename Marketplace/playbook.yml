@@ -6,6 +6,10 @@
    - vars/default.yml
   
   tasks:
+  - name: Update
+    command: 'sudo yum update -y'
+  - name: Tools
+    command: 'sudo yum install open-vm-tools -y'
 ##PHP7.4
   - name: Instalar php1
     command: 'sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y'
