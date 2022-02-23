@@ -8,6 +8,8 @@
   tasks:
   - name: Update
     command: 'sudo yum update -y'
+  - name: Upgrade
+    command: 'sudo yum upgrade -y'
   - name: Tools
     command: 'sudo yum install open-vm-tools -y'
 ##PHP7.4
