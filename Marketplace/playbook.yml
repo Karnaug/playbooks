@@ -47,10 +47,10 @@
 
 ##SNMP
   - name: Instalar snmp1 
-    command: 'sudo dnf module disable mysql -y'
+    command: 'sudo dnf install net-snmp -y'
   - name: Instalar snmp2
     template:
-      src: "files/snmp.conf"
+      src: "files/snmpd.conf"
       dest: "/etc/snmp/snmpd.conf" 
   - name: Instalar snmp3 
     command: 'sudo systemctl enable snmpd'
