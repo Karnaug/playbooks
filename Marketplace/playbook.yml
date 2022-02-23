@@ -100,5 +100,10 @@
 #    command: 'sudo service iptables restart'
 #  - name: Instalar iptables8
 #    command: 'sudo systemctl disable firewalld'
+##IP
+  - name: Configuración de red1
+    lineinfile: dest=/etc/sysconfig/network-scripts/ifcfg-enp0s3 regexp="^IPADDR=" line="IPADDR={{ipaddr}}" state=present
+  - name: Configuración de red2
+    lineinfile: dest=/etc/sysconfig/network-scripts/ifcfg-enp0s3 regexp="^GATEWAY=192.168.149.187" line="GATEWAY={{gateway}}" state=present
     
 
