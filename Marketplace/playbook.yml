@@ -114,5 +114,6 @@
 ##REBOOT
   - name: Reiniciar máquina
     command: 'sudo reboot'
+    ignore_errors: yes
     
 
