@@ -2,6 +2,8 @@
 - hosts: Rocky
   become: true
   become_method: sudo
+  vars_files:
+   - vars/default.yml
   
   tasks:
 ##PHP7.4
