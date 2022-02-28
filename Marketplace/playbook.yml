@@ -85,9 +85,9 @@
       src: "files/web.zip"
       dest: "/var/www/web.zip"
   - name: Instalar httpd7
-    command: 'sudo unzip /var/www/web.zip -d /var/www/'
+    command: 'unzip /var/www/web.zip -d /var/www/'
   - name: Instalar httpd8
-    command: 'rm /var/www/web.zip'
+    command: 'sudo rm -f /var/www/web.zip'
   
 
     ##HTTPD##SSL
