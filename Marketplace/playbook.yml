@@ -12,6 +12,8 @@
     command: 'sudo yum upgrade -y'
   - name: Tools
     command: 'sudo yum install open-vm-tools -y'
+  - name: Unzip
+    command: 'sudo yum install unzip -y'
 ##PHP7.4
   - name: Instalar php1
     command: 'sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y'
@@ -78,6 +80,15 @@
     template:
       src: "files/httpd.conf"
       dest: "/etc/httpd/conf/httpd.conf"
+  - name: Instalar httpd6
+    template:
+      src: "files/web.zip"
+      dest: "/var/www/web.zip"
+  - name: Instalar httpd7
+    command: 'sudo unzip /var/www/web.zip -d /var/www/'
+  - name: Instalar httpd8
+    command: 'rm /var/www/web.zip'
+  
 
     ##HTTPD##SSL
   - name: Instalar httpd-ssl1
