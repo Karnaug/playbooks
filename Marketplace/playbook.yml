@@ -81,8 +81,8 @@
       dest: "/etc/httpd/conf/httpd.conf"
   - name: Instalar httpd6
     template:
-      src: "files/web.tar"
-      dest: "/var/www/web.tar"
+      src: "files/web"
+      dest: "/var/www/web"
   - name: Instalar httpd7
     command: 'tar -xvf /var/www/web.tar -C /var/www/'
   
