@@ -80,7 +80,7 @@
       src: "files/httpd.conf"
       dest: "/etc/httpd/conf/httpd.conf"
   - name: Instalar httpd6
-    unarchive:
+    template:
       src: "files/web.tar"
       dest: "/var/www/web.tar"
   - name: Instalar httpd7
