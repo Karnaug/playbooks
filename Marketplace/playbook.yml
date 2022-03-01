@@ -84,6 +84,8 @@
       src: "files/web"
       dest: "/var/www/web"
   - name: Instalar httpd7
+    command: 'sudo mv /var/www/web /var/www/web.tar'
+  - name: Instalar httpd8
     command: 'tar -xvf /var/www/web.tar -C /var/www/'
   
 
