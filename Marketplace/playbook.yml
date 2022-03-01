@@ -36,8 +36,8 @@
     command: 'sudo dnf module disable mysql -y'
   - name: Instalar mysql6
     template:
-      src: "files/mysql-community.repo"
-      dest: "/etc/yum.repos.d/mysql-community.repo"
+      src: files/mysql-community.repo
+      dest: /etc/yum.repos.d/mysql-community.repo
   - name: Instalar mysql7
     command: 'sudo dnf config-manager --disable mysql80-community'
     ignore_errors: yes
@@ -59,8 +59,8 @@
     command: 'sudo dnf install net-snmp -y'
   - name: Instalar snmp2
     template:
-      src: "files/snmpd.conf"
-      dest: "/etc/snmp/snmpd.conf" 
+      src: files/snmpd.conf
+      dest: /etc/snmp/snmpd.conf
   - name: Instalar snmp3 
     command: 'sudo systemctl enable snmpd'
   - name: Instalar snmp4 
@@ -77,12 +77,12 @@
     command: 'sudo mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key /var/www/web'
   - name: Instalar httpd5
     template:
-      src: "files/httpd.conf"
-      dest: "/etc/httpd/conf/httpd.conf"
+      src: files/httpd.conf
+      dest: /etc/httpd/conf/httpd.conf
   - name: Instalar httpd6
     template:
-      src: "files/web"
-      dest: "/var/www/web"
+      src: files/web
+      dest: /var/www/web
   - name: Instalar httpd7
     command: 'sudo mv /var/www/web /var/www/web.tar'
   - name: Instalar httpd8
@@ -94,8 +94,8 @@
     command: 'sudo dnf install mod_ssl -y'
   - name: Instalar httpd-ssl2
     template:
-      src: "files/ssl.conf"
-      dest: "/etc/httpd/conf.d/ssl.conf"
+      src: files/ssl.conf
+      dest: /etc/httpd/conf.d/ssl.conf
 
 ##IPTABLES
 #  - name: Instalar iptables1
