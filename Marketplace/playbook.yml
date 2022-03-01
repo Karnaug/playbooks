@@ -79,12 +79,12 @@
     template:
       src: "files/httpd.conf"
       dest: "/etc/httpd/conf/httpd.conf"
-  - name: Instalar httpd6
-    unarchive:
-      src: "files/web.tar"
-      dest: "/var/www/web.tar"
-  - name: Instalar httpd7
-    command: 'tar -xvf /var/www/web.tar -C /var/www/'
+#  - name: Instalar httpd6
+#    unarchive:
+#      src: "files/web.tar"
+#      dest: "/var/www/web.tar"
+#  - name: Instalar httpd7
+#    command: 'tar -xvf /var/www/web.tar -C /var/www/'
   
 
     ##HTTPD##SSL
