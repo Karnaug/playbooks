@@ -11,7 +11,7 @@
   - name: Upgrade
     command: 'sudo yum upgrade -y'
   - name: Tools
-    command: 'sudo yum install open-vm-tools -y'
+    command: 'sudo yum install open-vm-tools unzip wget -y'
     
 ##PHP7.4
   - name: Instalar php1
@@ -80,13 +80,9 @@
       src: files/httpd.conf
       dest: /etc/httpd/conf/httpd.conf
   - name: Instalar httpd6
-    template:
-      src: files/web
-      dest: /var/www/web
+    command: 'wget https://github.com/Karnaug/playbooks/blob/main/Marketplace/files/web.zip -P /var/www/'
   - name: Instalar httpd7
-    command: 'sudo mv /var/www/web /var/www/web.tar'
-  - name: Instalar httpd8
-    command: 'tar -xvf /var/www/web.tar -C /var/www/'
+    command: 'unzip /var/www/web.zip -d /var/www/'
   
 
     ##HTTPD##SSL
