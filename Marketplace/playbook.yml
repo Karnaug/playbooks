@@ -80,7 +80,9 @@
       src: files/httpd.conf
       dest: /etc/httpd/conf/httpd.conf
   - name: Instalar httpd6
-    command: 'wget https://github.com/Karnaug/marketplace.git -P /var/www/marketplace'
+    command: 'sudo rm -rf /var/www/html/*'
+  - name: Instalar httpd7
+    command: ' sudo git clone https://github.com/Karnaug/marketplace.git /var/www/html'
 
 
     ##HTTPD##SSL
