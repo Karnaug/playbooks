@@ -74,16 +74,14 @@
   - name: Instalar httpd3
     command: 'sudo systemctl start httpd'
   - name: Instalar httpd4
-    command: 'sudo mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key'
+    command: 'sudo mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key /var/www/marketplace'
   - name: Instalar httpd5
     template:
       src: files/httpd.conf
       dest: /etc/httpd/conf/httpd.conf
   - name: Instalar httpd6
-    command: 'wget https://github.com/Karnaug/playbooks/blob/main/Marketplace/files/web.zip -P /var/www/'
-  - name: Instalar httpd7
-    command: 'unzip /var/www/web.zip -d /var/www/'
-  
+    command: 'wget https://github.com/Karnaug/marketplace.git -P /var/www/marketplace'
+
 
     ##HTTPD##SSL
   - name: Instalar httpd-ssl1
