@@ -10,7 +10,10 @@
       shell: sudo rpm -Uvh http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
       ignore_errors: yes
     - name: "Installing MySQL 5.7"
-      package: name=mysql-community-server state=present
+      dnf:
+        name: 
+          - mysql-community-server
+        state: present
     - name: Start the MySQL service
       become: true
       service: 
