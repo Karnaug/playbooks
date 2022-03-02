@@ -74,7 +74,7 @@
   - name: Instalar httpd3
     command: 'sudo systemctl start httpd'
   - name: Instalar httpd4
-    command: 'sudo mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key /var/www/marketplace'
+    command: 'sudo mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key'
   - name: Instalar httpd5
     template:
       src: files/httpd.conf
@@ -82,7 +82,7 @@
   - name: Instalar httpd6
     command: 'sudo rm -rf /var/www/html/*'
   - name: Instalar httpd7
-    command: 'sudo git {{ apiweb }} /var/www/html'
+    command: 'sudo git clone {{ apiweb }} /var/www/html'
 
 
     ##HTTPD##SSL
