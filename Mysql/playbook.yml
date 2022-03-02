@@ -10,10 +10,12 @@
     command: 'sudo yum upgrade -y'
 
 ##MYSQL5.7  
-- name: Install mysql 5.7
+- name: mysql
   dnf:
-    name: mysql=5.7
-    state: present
+    name:
+      - mysql-server
+    state: latest
+    
 
 
 
