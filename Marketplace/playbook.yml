@@ -82,7 +82,7 @@
   - name: Instalar httpd6
     command: 'sudo rm -rf /var/www/html/*'
   - name: Instalar httpd7
-    command: ' sudo git clone https://github.com/Karnaug/marketplace.git /var/www/html'
+    command: 'sudo git {{ apiweb }} /var/www/html'
 
 
     ##HTTPD##SSL
