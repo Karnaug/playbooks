@@ -1,26 +1,36 @@
+
 ---
-- name: Install MySQL
-  hosts: all
+- hosts: all
   become: true
   become_method: sudo
+  vars_files:
+   - vars/default.yml
   
   tasks:
-    - name: "Installing Repo"
-      shell: sudo rpm -Uvh http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
-      ignore_errors: yes
-    - name: "Installing MySQL 5.7"
-      dnf:
-        name: 
-          - mysql-community-server
-        state: present
-    - name: Start the MySQL service
-      become: true
-      service: 
-        name: mysqld
-        state: started
-        enabled: true
-    - debug: var=mysql_root_pass.stdout
-    
+##MYSQL5.7  
+  - name: Instalar mysql1 
+    command: 'dnf search open-vm'
+  - name: Instalar mysql2
+    command: 'sudo dnf install open-vm-tools.x86_64 -y'
+  - name: Instalar mysql3
+    command: 'sudo dnf remove @mysql'
+  - name: Instalar mysql4
+    command: 'sudo dnf module reset mysql'
+  - name: Instalar mysql5 
+    command: 'sudo dnf module disable mysql -y'
+  - name: Instalar mysql6
+    template:
+      src: files/mysql-community.repo
+      dest: /etc/yum.repos.d/mysql-community.repo
+  - name: Instalar mysql7
+    command: 'sudo dnf config-manager --disable mysql80-community'
+    ignore_errors: yes
+  - name: Instalar mysql8
+    command: 'sudo dnf config-manager --enable mysql57-community'
+  - name: Instalar mysql9
+    command: 'sudo dnf install mysql-community-server -y'
+  - name: Instalar mysql10 
+    command: 'sudo systemctl enable --now mysqld.service'    
 
 
 
