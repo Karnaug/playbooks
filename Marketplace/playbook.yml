@@ -11,8 +11,12 @@
   - name: Upgrade
     command: 'sudo yum upgrade -y'
   - name: Tools
-    command: 'sudo yum install open-vm-tools unzip wget -y'
-    
+    dnf:
+      name: 
+        - open-vm-tools
+        - git
+      state: latest
+      
 ##PHP7.4
   - name: Instalar php1
     command: 'sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y'
@@ -48,11 +52,6 @@
   - name: Instalar mysql10 
     command: 'sudo systemctl enable --now mysqld.service'
 
-##GIT
-  - name: Instalar git1
-    command: 'sudo dnf search git'
-  - name: Instalar git2
-    command: 'sudo dnf install git.x86_64 -y'
 
 ##SNMP
   - name: Instalar snmp1 
