@@ -3,10 +3,19 @@
 - hosts: all
   become: true
   become_method: sudo
-  vars_files:
-   - vars/default.yml
   
   tasks:
+  - name: Update
+    command: 'sudo yum update -y'
+  - name: Upgrade
+    command: 'sudo yum upgrade -y'
+  - name: Tools
+    dnf:
+      name: 
+        - open-vm-tools
+        - git
+      state: latest
+      
 ##MYSQL5.7  
   - name: Instalar mysql1 
     command: 'dnf search open-vm'
