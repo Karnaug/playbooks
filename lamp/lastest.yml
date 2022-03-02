@@ -14,7 +14,6 @@
           - mysql-devel
           - php
           - php-devel
-          - php-mysql
         state: latest 
 
     - name: start services
