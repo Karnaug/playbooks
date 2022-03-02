@@ -1,0 +1,29 @@
+
+---
+- hosts: all
+  become: true
+  become_method: sudo
+  vars_files:
+   - vars/default.yml
+
+  tasks:
+  - name: Update
+    command: 'sudo yum update -y'
+  - name: Upgrade
+    command: 'sudo yum upgrade -y'
+  - name: Tools
+    dnf:
+      name: 
+        - open-vm-tools
+        - git
+      state: latest
+
+ ##PHP7.4
+  - name: Instalar php1
+    command: 'sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y'
+  - name: Instalar php2
+    command: 'sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y'
+  - name: Instalar php3
+    command: 'sudo dnf module enable php:remi-7.4 -y'
+  - name: Instalar php4
+    command: 'sudo dnf install php php-cli php-common php-mysqlnd -y'     
