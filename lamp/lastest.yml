@@ -15,6 +15,5 @@
           - php
           - php-devel
         state: latest 
-     - name: service enabled 
-       command: 'sudo systemctl enable --now mysqld.service'    
+  
 
