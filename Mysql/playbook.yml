@@ -10,32 +10,10 @@
     command: 'sudo yum upgrade -y'
 
 ##MYSQL5.7  
-
-##MYSQL5.7  
-  - name: mysql1 
-    command: 'dnf search open-vm'
-  - name: mysql2
-    command: 'sudo dnf install open-vm-tools.x86_64 -y'
-  - name: mysql3
-    command: 'sudo dnf remove @mysql'
-  - name: mysql4
-    command: 'sudo dnf module reset mysql'
-  - name: mysql5 
-    command: 'sudo dnf module disable mysql -y'
-  - name: mysql6
-    template:
-      src: files/mysql-community.repo
-      dest: /etc/yum.repos.d/mysql-community.repo
-  - name: mysql7
-    command: 'sudo dnf config-manager --disable mysql80-community'
-    ignore_errors: yes
-  - name: mysql8
-    command: 'sudo dnf config-manager --enable mysql57-community'
-    ignore_errors: yes
-  - name: Instalando MySQL 5.7
-    package: name=mysql-community-server state=present
-  - name: Instalar mysql10 
-    command: 'sudo systemctl enable --now mysqld.service'
+- name: Install mysql = 5.7
+  dnf:
+    name: httpd=5.7
+    state: present
 
 
 
