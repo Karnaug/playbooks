@@ -10,17 +10,17 @@
     command: 'sudo yum upgrade -y'
 
 ##MYSQL5.7  
-   - name: "Instalar Repo"
-      shell: sudo rpm -Uvh http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
-      ignore_errors: yes
-    - name: "Instalar MySQL 5.7"
-      package: name=mysql-community-server state=present
-    - name: Start the MySQL service
-      become: true
-      service: 
-        name: mysqld
-        state: started
-        enabled: true
+  - name: "Instalar Repo"
+     shell: sudo rpm -Uvh http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
+     ignore_errors: yes
+  - name: "Instalar MySQL 5.7"
+     package: name=mysql-community-server state=present
+  - name: Start the MySQL service
+     become: true
+     service: 
+       name: mysqld
+       state: started
+       enabled: true
 
 
 
