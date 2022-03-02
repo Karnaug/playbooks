@@ -5,21 +5,22 @@
 
   tasks:
     - name: install lamp stack
-      sudo: yes
-      yum: name={{ item }} state=present
-      with_items:
-        - httpd
-        - httpd-devel
-        - mysql
-        - mysql-server
-        - mysql-devel
-        - php
-        - php-devel
-        - php-mysql
+      dnf:
+        name: 
+          - httpd
+          - httpd-devel
+          - mysql
+          - mysql-server
+          - mysql-devel
+          - php
+          - php-devel
+          - php-mysql
+        state: latest 
 
     - name: start services
-      service: name={{ item }} state=running enabled=yes
-      sudo: yes
-      with_items:
-        - httpd
-        - mysqld
+      service: 
+          name :
+            - httpd
+            - mysqld
+          state: running
+          enabled: yes
