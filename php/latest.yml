@@ -1,0 +1,40 @@
+
+---
+- hosts: all
+  become: true
+  become_method: sudo
+CENTOS
+  tasks:
+  - name: Update
+    command: 'sudo yum update -y'
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  - name: Upgrade
+    command: 'sudo yum upgrade -y'
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  - name: Tools
+    dnf:
+      name: 
+        - open-vm-tools
+        - git
+        - php
+        - php-cli
+        - php-common
+        - php-mysqlnd
+      state: latest
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+##UBUNTU
+  - name: Update
+    command: 'sudo apt update -y'
+    when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  - name: Upgrade
+    command: 'sudo apt upgrade -y'
+    when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  - name: Tools
+    package:
+      name: 
+        - net-tool
+        - git
+        - php
+      state: latest
+    when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
