@@ -3,7 +3,8 @@
 - hosts: all
   become: true
   become_method: sudo
-CENTOS
+  
+##CENTOS
   tasks:
   - name: Update
     command: 'sudo yum update -y'
