@@ -27,24 +27,24 @@
   ##MYSQL5.7  
     - name: Instalar mysql(1/4) 
       command:   sudo dnf {{ item }}    
-        with_items:
-          - search open-vm
-          - install open-vm-tools.x86_64 -y
-          - remove @mysql
-          - module reset mysql
-          - module disable mysql -y
+      with_items:
+        - search open-vm
+        - install open-vm-tools.x86_64 -y
+        - remove @mysql
+        - module reset mysql
+        - module disable mysql -y
     - name: Instalar mysql(2/4)
       template:
         src: files/mysql-community.repo
         dest: /etc/yum.repos.d/mysql-community.repo
     - name: Instalar mysql(3/4) 
       command:   sudo dnf {{ item }}    
-        with_items:
-          - config-manager --disable mysql80-community
-          - dnf config-manager --enable mysql57-community
-          - install mysql-community-server -y
-          - module reset mysql
-          - module disable mysql -y
+      with_items:
+        - config-manager --disable mysql80-community
+        - dnf config-manager --enable mysql57-community
+        - install mysql-community-server -y
+        - module reset mysql
+        - module disable mysql -y
     - name: Instalar mysql(4/4) 
       command: 'sudo systemctl enable --now mysqld.service'
 
@@ -58,27 +58,27 @@
         dest: /etc/snmp/snmpd.conf
     - name: Instalar snmp(3/3) 
       command: sudo systemctl {{ item }}    
-        with_items:
-          - enable snmpd
-          - start snmpd
+      with_items:
+        - enable snmpd
+        - start snmpd
 
   ##HTTPD
     - name: Instalar httpd(1/3) 
       command: sudo {{ item }}
-        with_items:
-          - yum install httpd -y
-          - systemctl enable httpd
-          - systemctl start httpd
-          - mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key
+      with_items:
+        - yum install httpd -y
+        - systemctl enable httpd
+        - systemctl start httpd
+        - mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key
     - name: Instalar httpd(2/3)
       template:
         src: files/httpd.conf
         dest: /etc/httpd/conf/httpd.conf
     - name: Instalar httpd(3/3)
       command: sudo {{ item }}
-        with_items:
-          - rm -rf /var/www/html/*
-          - git clone {{ apiweb }} /var/www/html
+      with_items:
+        - rm -rf /var/www/html/*
+        - git clone {{ apiweb }} /var/www/html
 
       ##HTTPD##SSL
     - name: Instalar httpd-ssl1
