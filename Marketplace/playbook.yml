@@ -4,123 +4,123 @@
   become_method: sudo
   
   tasks:
-  - name: Update
-    command: 'sudo yum update -y'
-  - name: Upgrade
-    command: 'sudo yum upgrade -y'
-  - name: Tools
-    dnf:
-      name: 
-        - open-vm-tools
-        - git
-      state: latest
-      
-##PHP7.4
-  - name: Instalar php
-    command: sudo dnf {{ item }}    
-    with_items:
-      - install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
-      - install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
-      - module enable php:remi-7.4 -y
-      - install php php-cli php-common php-mysqlnd -y
+    - name: Update
+      command: 'sudo yum update -y'
+    - name: Upgrade
+      command: 'sudo yum upgrade -y'
+    - name: Tools
+      dnf:
+        name: 
+          - open-vm-tools
+          - git
+        state: latest
 
-##MYSQL5.7  
-  - name: Instalar mysql(1/4) 
-    command:   sudo dnf {{ item }}    
+  ##PHP7.4
+    - name: Instalar php
+      command: sudo dnf {{ item }}    
       with_items:
-        - search open-vm
-        - install open-vm-tools.x86_64 -y
-        - remove @mysql
-        - module reset mysql
-        - module disable mysql -y
-  - name: Instalar mysql(2/4)
-    template:
-      src: files/mysql-community.repo
-      dest: /etc/yum.repos.d/mysql-community.repo
-  - name: Instalar mysql(3/4) 
-    command:   sudo dnf {{ item }}    
-      with_items:
-        - config-manager --disable mysql80-community
-        - dnf config-manager --enable mysql57-community
-        - install mysql-community-server -y
-        - module reset mysql
-        - module disable mysql -y
-  - name: Instalar mysql(4/4) 
-    command: 'sudo systemctl enable --now mysqld.service'
+        - install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+        - install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+        - module enable php:remi-7.4 -y
+        - install php php-cli php-common php-mysqlnd -y
+
+  ##MYSQL5.7  
+    - name: Instalar mysql(1/4) 
+      command:   sudo dnf {{ item }}    
+        with_items:
+          - search open-vm
+          - install open-vm-tools.x86_64 -y
+          - remove @mysql
+          - module reset mysql
+          - module disable mysql -y
+    - name: Instalar mysql(2/4)
+      template:
+        src: files/mysql-community.repo
+        dest: /etc/yum.repos.d/mysql-community.repo
+    - name: Instalar mysql(3/4) 
+      command:   sudo dnf {{ item }}    
+        with_items:
+          - config-manager --disable mysql80-community
+          - dnf config-manager --enable mysql57-community
+          - install mysql-community-server -y
+          - module reset mysql
+          - module disable mysql -y
+    - name: Instalar mysql(4/4) 
+      command: 'sudo systemctl enable --now mysqld.service'
 
 
-##SNMP
-  - name: Instalar snmp(1/3) 
-    command: 'sudo dnf install net-snmp -y'
-  - name: Instalar snmp(2/3)
-    template:
-      src: files/snmpd.conf
-      dest: /etc/snmp/snmpd.conf
-  - name: Instalar snmp(3/3) 
-    command: sudo systemctl {{ item }}    
-      with_items:
-        - enable snmpd
-        - start snmpd
+  ##SNMP
+    - name: Instalar snmp(1/3) 
+      command: 'sudo dnf install net-snmp -y'
+    - name: Instalar snmp(2/3)
+      template:
+        src: files/snmpd.conf
+        dest: /etc/snmp/snmpd.conf
+    - name: Instalar snmp(3/3) 
+      command: sudo systemctl {{ item }}    
+        with_items:
+          - enable snmpd
+          - start snmpd
 
-##HTTPD
-  - name: Instalar httpd(1/3) 
-    command: sudo {{ item }}
-      with_items:
-        - yum install httpd -y
-        - systemctl enable httpd
-        - systemctl start httpd
-        - mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key
-  - name: Instalar httpd(2/3)
-    template:
-      src: files/httpd.conf
-      dest: /etc/httpd/conf/httpd.conf
-  - name: Instalar httpd(3/3)
-    command: sudo {{ item }}
-      with_items:
-        - rm -rf /var/www/html/*
-        - git clone {{ apiweb }} /var/www/html
+  ##HTTPD
+    - name: Instalar httpd(1/3) 
+      command: sudo {{ item }}
+        with_items:
+          - yum install httpd -y
+          - systemctl enable httpd
+          - systemctl start httpd
+          - mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key
+    - name: Instalar httpd(2/3)
+      template:
+        src: files/httpd.conf
+        dest: /etc/httpd/conf/httpd.conf
+    - name: Instalar httpd(3/3)
+      command: sudo {{ item }}
+        with_items:
+          - rm -rf /var/www/html/*
+          - git clone {{ apiweb }} /var/www/html
 
-    ##HTTPD##SSL
-  - name: Instalar httpd-ssl1
-    command: 'sudo dnf install mod_ssl -y'
-  - name: Instalar httpd-ssl2
-    template:
-      src: files/ssl.conf
-      dest: /etc/httpd/conf.d/ssl.conf
+      ##HTTPD##SSL
+    - name: Instalar httpd-ssl1
+      command: 'sudo dnf install mod_ssl -y'
+    - name: Instalar httpd-ssl2
+      template:
+        src: files/ssl.conf
+        dest: /etc/httpd/conf.d/ssl.conf
 
-##IPTABLES
-#  - name: Instalar iptables1
-#    command: 'sudo dnf install iptables -y'
-#  - name: Instalar iptables2
-#    command: 'sudo dnf install iptables-services -y'
-#  - name: Instalar iptables3
-#    command: 'sudo systemctl enable iptables'
-#  - name: Instalar iptables4
-#    command: 'sudo service iptables start'
-#  - name: Instalar httpd-ssl5
-#    template:
-#      src: "files/iptables-config"
-#      dest: "/etc/sysconfig/iptables-config"
-#  - name: Instalar httpd-ssl6
-#    template:
-#      src: "files/iptables"
-#      dest: "/etc/sysconfig/iptables"
-#  - name: Instalar iptables7
-#    command: 'sudo service iptables restart'
+  ##IPTABLES
+  #  - name: Instalar iptables1
+  #    command: 'sudo dnf install iptables -y'
+  #  - name: Instalar iptables2
+  #    command: 'sudo dnf install iptables-services -y'
+  #  - name: Instalar iptables3
+  #    command: 'sudo systemctl enable iptables'
+  #  - name: Instalar iptables4
+  #    command: 'sudo service iptables start'
+  #  - name: Instalar httpd-ssl5
+  #    template:
+  #      src: "files/iptables-config"
+  #      dest: "/etc/sysconfig/iptables-config"
+  #  - name: Instalar httpd-ssl6
+  #    template:
+  #      src: "files/iptables"
+  #      dest: "/etc/sysconfig/iptables"
+  #  - name: Instalar iptables7
+  #    command: 'sudo service iptables restart'
 
-##FIREWALLD
-  - name: Deshabilitar firewalld
-    command: 'sudo systemctl disable firewalld'
-##IP
-  - name: Configuración de red1
-    lineinfile: dest=/etc/sysconfig/network-scripts/ifcfg-enp0s3 regexp="^IPADDR=" line="IPADDR={{ ipaddr }}" state=present
-  - name: Configuración de red2
-    lineinfile: dest=/etc/sysconfig/network-scripts/ifcfg-enp0s3 regexp="^GATEWAY=192.168.149.187" line="GATEWAY={{ gateway }}" state=present
-  - name: Configuración de red3
-    command: 'sudo systemctl restart NetworkManager.service'
-##REBOOT
-  - name: Reiniciar máquina
-    command: 'sudo reboot'
-    ignore_errors: yes
-    
+  ##FIREWALLD
+    - name: Deshabilitar firewalld
+      command: 'sudo systemctl disable firewalld'
+  ##IP
+    - name: Configuración de red1
+      lineinfile: dest=/etc/sysconfig/network-scripts/ifcfg-enp0s3 regexp="^IPADDR=" line="IPADDR={{ ipaddr }}" state=present
+    - name: Configuración de red2
+      lineinfile: dest=/etc/sysconfig/network-scripts/ifcfg-enp0s3 regexp="^GATEWAY=192.168.149.187" line="GATEWAY={{ gateway }}" state=present
+    - name: Configuración de red3
+      command: 'sudo systemctl restart NetworkManager.service'
+  ##REBOOT
+    - name: Reiniciar máquina
+      command: 'sudo reboot'
+      ignore_errors: yes
+
 
