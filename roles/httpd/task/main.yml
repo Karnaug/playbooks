@@ -1,0 +1,3 @@
+- include: install.yml
+- include: index.yml
+- include: service.yml
