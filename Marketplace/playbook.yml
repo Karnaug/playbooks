@@ -16,71 +16,69 @@
       state: latest
       
 ##PHP7.4
-  - name: Instalar php1
-    command: 'sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y'
-  - name: Instalar php2
-    command: 'sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y'
-  - name: Instalar php3
-    command: 'sudo dnf module enable php:remi-7.4 -y'
-  - name: Instalar php4
-    command: 'sudo dnf install php php-cli php-common php-mysqlnd -y'
+  - name: Instalar php
+    command: sudo dnf {{ item }}    
+    with_items:
+      - install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+      - install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+      - module enable php:remi-7.4 -y
+      - install php php-cli php-common php-mysqlnd -y
 
 ##MYSQL5.7  
-  - name: Instalar mysql1 
-    command: 'dnf search open-vm'
-  - name: Instalar mysql2
-    command: 'sudo dnf install open-vm-tools.x86_64 -y'
-  - name: Instalar mysql3
-    command: 'sudo dnf remove @mysql'
-  - name: Instalar mysql4
-    command: 'sudo dnf module reset mysql'
-  - name: Instalar mysql5 
-    command: 'sudo dnf module disable mysql -y'
-  - name: Instalar mysql6
+  - name: Instalar mysql(1/4) 
+    command:   sudo dnf {{ item }}    
+      with_items:
+        - search open-vm
+        - install open-vm-tools.x86_64 -y
+        - remove @mysql
+        - module reset mysql
+        - module disable mysql -y
+  - name: Instalar mysql(2/4)
     template:
       src: files/mysql-community.repo
       dest: /etc/yum.repos.d/mysql-community.repo
-  - name: Instalar mysql7
-    command: 'sudo dnf config-manager --disable mysql80-community'
-    ignore_errors: yes
-  - name: Instalar mysql8
-    command: 'sudo dnf config-manager --enable mysql57-community'
-  - name: Instalar mysql9
-    command: 'sudo dnf install mysql-community-server -y'
-  - name: Instalar mysql10 
+  - name: Instalar mysql(3/4) 
+    command:   sudo dnf {{ item }}    
+      with_items:
+        - config-manager --disable mysql80-community
+        - dnf config-manager --enable mysql57-community
+        - install mysql-community-server -y
+        - module reset mysql
+        - module disable mysql -y
+  - name: Instalar mysql(4/4) 
     command: 'sudo systemctl enable --now mysqld.service'
 
 
 ##SNMP
-  - name: Instalar snmp1 
+  - name: Instalar snmp(1/3) 
     command: 'sudo dnf install net-snmp -y'
-  - name: Instalar snmp2
+  - name: Instalar snmp(2/3)
     template:
       src: files/snmpd.conf
       dest: /etc/snmp/snmpd.conf
-  - name: Instalar snmp3 
-    command: 'sudo systemctl enable snmpd'
-  - name: Instalar snmp4 
-    command: 'sudo systemctl start snmpd'
+  - name: Instalar snmp(3/3) 
+    command: sudo systemctl {{ item }}    
+      with_items:
+        - enable snmpd
+        - start snmpd
 
 ##HTTPD
-  - name: Instalar httpd1 
-    command: 'sudo yum install httpd -y'
-  - name: Instalar httpd2
-    command: 'sudo systemctl enable httpd'
-  - name: Instalar httpd3
-    command: 'sudo systemctl start httpd'
-  - name: Instalar httpd4
-    command: 'sudo mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key'
-  - name: Instalar httpd5
+  - name: Instalar httpd(1/3) 
+    command: sudo {{ item }}
+      with_items:
+        - yum install httpd -y
+        - systemctl enable httpd
+        - systemctl start httpd
+        - mkdir /etc/httpd/sites-availabe /etc/httpd/sites-enabled /etc/httpd/ssl.crt /etc/httpd/ssl.key
+  - name: Instalar httpd(2/3)
     template:
       src: files/httpd.conf
       dest: /etc/httpd/conf/httpd.conf
-  - name: Instalar httpd6
-    command: 'sudo rm -rf /var/www/html/*'
-  - name: Instalar httpd7
-    command: 'sudo git clone {{ apiweb }} /var/www/html'
-
+  - name: Instalar httpd(3/3)
+    command: sudo {{ item }}
+      with_items:
+        - rm -rf /var/www/html/*
+        - git clone {{ apiweb }} /var/www/html
 
     ##HTTPD##SSL
   - name: Instalar httpd-ssl1
