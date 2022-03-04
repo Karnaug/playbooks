@@ -6,7 +6,8 @@
   tasks:      
 ##PHP7.4
     - command:   sudo dnf {{ item }}    
-      - install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
-      - install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
-      - module enable php:remi-7.4 -y
-      - install php php-cli php-common php-mysqlnd -y
+      whit_item:
+        - install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+        - install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+        - module enable php:remi-7.4 -y
+        - install php php-cli php-common php-mysqlnd -y
