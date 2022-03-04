@@ -1,7 +1,7 @@
 ---
-- hosts: 192.168.149.187
+- hosts: all
   become_method: sudo
   become: true
   
   roles:
-    - role: httpd
+    - - { role: /root/instalaciones/roles/httpd, sudo: Yes }
