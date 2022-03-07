@@ -83,7 +83,7 @@
         dest: /etc/httpd/conf.d/ssl.conf
   ##PHPMYADMIN
     - name: PhpMyAdmin(1/4)
-      command: {{ item }}
+      command: sudo {{ item }}
       with_items:
         - wget https://files.phpmyadmin.net/phpMyAdmin/5.1.3/phpMyAdmin-5.1.3-all-languages.tar.gz
         - tar -xvf phpMyAdmin-5.1.3-all-languages.tar.gz
