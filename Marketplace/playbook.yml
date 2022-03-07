@@ -13,6 +13,7 @@
         name: 
           - open-vm-tools
           - git
+          - wget
         state: latest
 
   ##PHP7.4
