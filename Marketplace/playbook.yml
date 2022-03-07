@@ -92,7 +92,7 @@
     - name: configurar pass de PhpMyAdmin
       lineinfile: dest=/usr/share/phpmyadmin/config.inc.php regexp="^cfg['blowfish_secret'] = '';" line="cfg['blowfish_secret']='{{ phpmyadminpass }}';" state=present 
     - name: PhpMyAdmin(2/4)
-      command: {{ item }}
+      command: sudo {{ item }}
       with_items:
         - mkdir /usr/share/phpmyadmin/tmp
         - chown -R apache:apache /usr/share/phpmyadmin
