@@ -82,7 +82,7 @@
         src: files/ssl.conf
         dest: /etc/httpd/conf.d/ssl.conf
   ##PHPMYADMIN
-    - name: PhpMyAdmin
+    - name: PhpMyAdmin(1/4)
       command: {{ item }}
       with_items:
         - wget https://files.phpmyadmin.net/phpMyAdmin/5.1.3/phpMyAdmin-5.1.3-all-languages.tar.gz
@@ -91,21 +91,21 @@
         - mv /usr/share/phpmyadmin/config.sample.inc.php /usr/share/phpmyadmin/config.inc.php
     - name: configurar pass de PhpMyAdmin
       lineinfile: dest=/usr/share/phpmyadmin/config.inc.php regexp="^cfg['blowfish_secret'] = '';" line="cfg['blowfish_secret']='{{ phpmyadminpass }}';" state=present 
-    - name: PhpMyAdmin
+    - name: PhpMyAdmin(2/4)
       command: {{ item }}
       with_items:
         - mkdir /usr/share/phpmyadmin/tmp
         - chown -R apache:apache /usr/share/phpmyadmin
         - chmod 777 /usr/share/phpmyadmin/tmp
-    - name: Config PhpMyAdmin
+    - name: PhpMyAdmin(3/4)
       template:
         src: files/phpmyadmin.conf
         dst: /etc/httpd/conf.d/phpmyadmin.conf
-    - name: reiniciar servicio apache
+    - name: PhpMyAdmin(4/4)
       service:
-	      name: "httpd"
-	      state: restarted
-	      enabled: yes
+        name: "httpd"
+        state: restarted
+	enabled: yes
   ##IPTABLES
     - name: Instalar iptables
       command: sudo {{ item }} -y
