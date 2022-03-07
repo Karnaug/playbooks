@@ -40,8 +40,8 @@
     - name: Instalar mysql(3/4) 
       command:   sudo dnf {{ item }}    
       with_items:
-        - config-manager --disable mysql80-community
-        - dnf config-manager --enable mysql57-community 
+        - config-manager --disable mysql80-community 2> /dev/null
+        - dnf config-manager --enable mysql57-community 2> /dev/null
         - install mysql-community-server -y
         - module reset mysql
         - module disable mysql -y
