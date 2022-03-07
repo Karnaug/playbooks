@@ -109,9 +109,9 @@
   ##IPTABLES
     - name: Instalar iptables
       command: sudo {{ item }} -y
-       with_items:
-         - iptables
-         - iptables-services     
+      with_items:
+        - iptables
+        - iptables-services     
     - name: Instalar iptables3
       command: 'sudo systemctl enable iptables'
     - name: Instalar iptables4
