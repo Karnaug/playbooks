@@ -33,7 +33,7 @@
     command:   sudo dnf {{ item }}    
     with_items:
       - config-manager --disable mysql80-community
-      - dnf config-manager --enable mysql57-community
+      - config-manager --enable mysql57-community
       - install mysql-community-server -y
       - module reset mysql
       - module disable mysql -y
