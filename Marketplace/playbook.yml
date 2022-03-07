@@ -30,9 +30,10 @@
       with_items:
         - search open-vm
         - install open-vm-tools.x86_64 -y
-        - remove @mysql &> /dev/null
-        - module reset mysql &> /dev/null
-        - module disable mysql -y &> /dev/null
+        - remove @mysql 
+        - module reset mysql 
+        - module disable mysql -y 
+      ignore_errors: yes
     - name: Instalar mysql(2/4)
       template:
         src: files/mysql-community.repo
