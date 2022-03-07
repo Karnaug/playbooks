@@ -23,7 +23,6 @@
         - install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
         - module enable php:remi-7.4 -y 
         - install php php-cli php-common php-mysqlnd -y
-
   ##MYSQL5.7  
     - name: Instalar mysql(1/4) 
       command:   sudo dnf {{ item }}    
@@ -33,7 +32,6 @@
         - remove @mysql 
         - module reset mysql 
         - module disable mysql -y 
-      ignore_errors: yes
     - name: Instalar mysql(2/4)
       template:
         src: files/mysql-community.repo
@@ -42,10 +40,8 @@
       command:   sudo dnf {{ item }}    
       with_items:
         - config-manager --disable mysql80-community
-        - dnf config-manager --enable mysql57-community
+        - config-manager --enable mysql57-community
         - install mysql-community-server -y
-        - module reset mysql
-        - module disable mysql -y
       ignore_errors: yes
     - name: Instalar mysql(4/4) 
       command: 'sudo systemctl enable --now mysqld.service'
