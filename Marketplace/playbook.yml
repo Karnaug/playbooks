@@ -30,9 +30,9 @@
       with_items:
         - search open-vm
         - install open-vm-tools.x86_64 -y
-        - remove @mysql > /dev/null
-        - module reset mysql > /dev/null
-        - module disable mysql -y > /dev/null
+        - remove @mysql &> /dev/null
+        - module reset mysql &> /dev/null
+        - module disable mysql -y &> /dev/null
     - name: Instalar mysql(2/4)
       template:
         src: files/mysql-community.repo
@@ -40,11 +40,11 @@
     - name: Instalar mysql(3/4) 
       command:   sudo dnf {{ item }}    
       with_items:
-        - config-manager --disable mysql80-community > /dev/null
-        - dnf config-manager --enable mysql57-community > /dev/null
+        - config-manager --disable mysql80-community &> /dev/null
+        - dnf config-manager --enable mysql57-community &> /dev/null
         - install mysql-community-server -y
-        - module reset mysql > /dev/null
-        - module disable mysql -y > /dev/null
+        - module reset mysql &> /dev/null
+        - module disable mysql -y &> /dev/null
       ignore_errors: yes
     - name: Instalar mysql(4/4) 
       command: 'sudo systemctl enable --now mysqld.service'
