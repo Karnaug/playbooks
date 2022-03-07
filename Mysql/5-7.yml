@@ -35,8 +35,6 @@
       - config-manager --disable mysql80-community
       - config-manager --enable mysql57-community
       - install mysql-community-server -y
-      - module reset mysql
-      - module disable mysql -y
     ignore_errors: yes
   - name: Instalar mysql(4/4) 
     command: 'sudo systemctl enable --now mysqld.service'
