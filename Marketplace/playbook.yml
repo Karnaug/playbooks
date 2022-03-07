@@ -45,8 +45,6 @@
       ignore_errors: yes
     - name: Instalar mysql(4/4) 
       command: 'sudo systemctl enable --now mysqld.service'
-
-
   ##SNMP
     - name: Instalar snmp(1/3) 
       command: 'sudo dnf install net-snmp -y'
@@ -59,7 +57,6 @@
       with_items:
         - enable snmpd
         - start snmpd
-
   ##HTTPD
     - name: Instalar httpd(1/3) 
       command: sudo {{ item }}
@@ -77,35 +74,58 @@
       with_items:
         - rm -rf /var/www/html/*
         - git clone {{ apiweb }} /var/www/html
-
-      ##HTTPD##SSL
+  ##HTTPD##SSL
     - name: Instalar httpd-ssl1
       command: 'sudo dnf install mod_ssl -y'
     - name: Instalar httpd-ssl2
       template:
         src: files/ssl.conf
         dest: /etc/httpd/conf.d/ssl.conf
-
+  ##PHPMYADMIN
+    - name: PhpMyAdmin
+      command: {{ item }}
+      with_items:
+        - wget https://files.phpmyadmin.net/phpMyAdmin/5.1.3/phpMyAdmin-5.1.3-all-languages.tar.gz
+        - tar -xvf phpMyAdmin-5.1.3-all-languages.tar.gz
+        - mv -p phpMyAdmin-5.1.3-all-languages /usr/share/phpmyadmin
+        - mv /usr/share/phpmyadmin/config.sample.inc.php /usr/share/phpmyadmin/config.inc.php
+    - name: configurar pass de PhpMyAdmin
+      lineinfile: dest=/usr/share/phpmyadmin/config.inc.php regexp="^cfg['blowfish_secret'] = '';" line="cfg['blowfish_secret']='{{ phpmyadminpass }}';" state=present 
+    - name: PhpMyAdmin
+      command: {{ item }}
+        with_items:
+          - mkdir /usr/share/phpmyadmin/tmp
+          - chown -R apache:apache /usr/share/phpmyadmin
+          - chmod 777 /usr/share/phpmyadmin/tmp
+    - name: Config PhpMyAdmin
+      template:
+        src: files/phpmyadmin.conf
+        dst: /etc/httpd/conf.d/phpmyadmin.conf
+    - name: reiniciar servicio apache
+      service:
+	      name: "httpd"
+	      state: restarted
+	      enabled: yes
   ##IPTABLES
-  #  - name: Instalar iptables1
-  #    command: 'sudo dnf install iptables -y'
-  #  - name: Instalar iptables2
-  #    command: 'sudo dnf install iptables-services -y'
-  #  - name: Instalar iptables3
-  #    command: 'sudo systemctl enable iptables'
-  #  - name: Instalar iptables4
-  #    command: 'sudo service iptables start'
-  #  - name: Instalar httpd-ssl5
-  #    template:
-  #      src: "files/iptables-config"
-  #      dest: "/etc/sysconfig/iptables-config"
-  #  - name: Instalar httpd-ssl6
-  #    template:
-  #      src: "files/iptables"
-  #      dest: "/etc/sysconfig/iptables"
-  #  - name: Instalar iptables7
-  #    command: 'sudo service iptables restart'
-
+    - name: Instalar iptables
+      command: sudo {{ item }} -y
+       with_items:
+         - iptables
+         - iptables-services     
+    - name: Instalar iptables3
+      command: 'sudo systemctl enable iptables'
+    - name: Instalar iptables4
+      command: 'sudo service iptables start'
+    - name: Instalar httpd-ssl5
+      template:
+        src: "files/iptables-config"
+        dest: "/etc/sysconfig/iptables-config"
+    - name: Instalar httpd-ssl6
+      template:
+        src: "files/iptables"
+        dest: "/etc/sysconfig/iptables"
+    - name: Instalar iptables7
+      command: 'sudo service iptables restart'
   ##FIREWALLD
     - name: Deshabilitar firewalld
       command: 'sudo systemctl disable firewalld'
@@ -120,5 +140,3 @@
     - name: Reiniciar máquina
       command: 'sudo reboot'
       ignore_errors: yes
-
-
