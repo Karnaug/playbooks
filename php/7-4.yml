@@ -19,11 +19,11 @@
       state: latest
 
  ##PHP7.4
-  - name: Instalar php1
-    command: 'sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y'
-  - name: Instalar php2
-    command: 'sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y'
-  - name: Instalar php3
-    command: 'sudo dnf module enable php:remi-7.4 -y'
-  - name: Instalar php4
-    command: 'sudo dnf install php php-cli php-common php-mysqlnd -y'     
+  - name: Instalar php
+    command:   sudo dnf {{ item }} -y   
+    with_items:
+      - install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm 
+      - install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+      - module enable php:remi-7.4
+      - install php php-cli php-common php-mysqlnd   
+
